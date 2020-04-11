@@ -5,48 +5,46 @@ const appRoot = document.getElementById('app')
 const app = {
     title: 'Indecision App',
     subtitle: 'Put your life in the hands of a computer!',
-    options: [
-        'One',
-        'Two'
-    ]
+    options: []
 }
 
-const template = (
-    <div>
-        <h1>{app.title}</h1>
-        {app.subtitle && <p>{app.subtitle}</p>}
-        <ol>
-            <li>Item One</li>
-            <li>Item Two</li>
-        </ol>
-        {app.options.length > 0 ? <p>Here are your options</p> : <p>No Options</p>}
-    </div>
-)
+const onFormSubmit = (e) => {
+    e.preventDefault()
 
-const user = {
-    name: 'Weylin Morris',
-    age: 23,
-    location: 'Artesia, NM'
-}
+    const option = e.target.elements.option.value
 
-const templateTwo = (
-    <div>
-        <h1>{user.name ? user.name : 'Anonymous'}</h1>
-        {user.age >= 18 && <p>Age: {user.age}</p>}
-        {user.location && <p>Location: {user.location}</p>}
-    </div>
-)
-
-ReactDOM.render(template, appRoot)
-
-
-
-const mulitplier = {
-    numbers: [1, 2, 3, 4, 5],
-    multiplyBy: 7,
-    multiply() {
-        return this.numbers.map((number) => number * this.multiplyBy)
+    if (option) {
+        app.options.push(option)
+        render()
+        e.target.elements.option.value = ''
     }
 }
 
-console.table(mulitplier.multiply())
+const onRemoveAll = () => {
+    app.options = []
+    render()
+}
+
+const render = () => {
+    const template = (
+        <div>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            {app.options.length > 0 ? <p>Here are your options</p> : <p>No Options</p>}
+            <p>{app.options.length}</p>
+            <button onClick={onRemoveAll}>Remove All</button>
+            <ol>
+                <li>Item One</li>
+                <li>Item Two</li>
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <button>Add Option</button>
+            </form>
+        </div>
+    )
+    
+    ReactDOM.render(template, appRoot)
+}
+
+render()
