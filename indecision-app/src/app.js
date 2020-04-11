@@ -38,3 +38,15 @@ const templateTwo = (
 )
 
 ReactDOM.render(template, appRoot)
+
+
+
+const mulitplier = {
+    numbers: [1, 2, 3, 4, 5],
+    multiplyBy: 7,
+    multiply() {
+        return this.numbers.map((number) => number * this.multiplyBy)
+    }
+}
+
+console.table(mulitplier.multiply())

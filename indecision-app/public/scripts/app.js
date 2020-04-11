@@ -77,3 +77,17 @@ var templateTwo = React.createElement(
 );
 
 ReactDOM.render(template, appRoot);
+
+var mulitplier = {
+    numbers: [1, 2, 3, 4, 5],
+    multiplyBy: 7,
+    multiply: function multiply() {
+        var _this = this;
+
+        return this.numbers.map(function (number) {
+            return number * _this.multiplyBy;
+        });
+    }
+};
+
+console.table(mulitplier.multiply());
